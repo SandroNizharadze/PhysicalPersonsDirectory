@@ -1,0 +1,11 @@
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Domain/bin/Debug/net8.0/PhysicalPersonsDirectory.Domain.deps.json
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Domain/bin/Debug/net8.0/PhysicalPersonsDirectory.Domain.dll
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Domain/bin/Debug/net8.0/PhysicalPersonsDirectory.Domain.pdb
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Domain/obj/Debug/net8.0/PhysicalPersonsDirectory.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Domain/obj/Debug/net8.0/PhysicalPersonsDirectory.Domain.AssemblyInfoInputs.cache
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Domain/obj/Debug/net8.0/PhysicalPersonsDirectory.Domain.AssemblyInfo.cs
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Domain/obj/Debug/net8.0/PhysicalPersonsDirectory.Domain.csproj.CoreCompileInputs.cache
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Domain/obj/Debug/net8.0/PhysicalPersonsDirectory.Domain.dll
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Domain/obj/Debug/net8.0/refint/PhysicalPersonsDirectory.Domain.dll
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Domain/obj/Debug/net8.0/PhysicalPersonsDirectory.Domain.pdb
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Domain/obj/Debug/net8.0/ref/PhysicalPersonsDirectory.Domain.dll

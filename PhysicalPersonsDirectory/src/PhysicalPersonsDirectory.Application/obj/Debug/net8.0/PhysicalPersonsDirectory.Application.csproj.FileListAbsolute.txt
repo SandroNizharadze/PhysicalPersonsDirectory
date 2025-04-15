@@ -1,0 +1,17 @@
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/bin/Debug/net8.0/PhysicalPersonsDirectory.Application.deps.json
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/bin/Debug/net8.0/PhysicalPersonsDirectory.Application.dll
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/bin/Debug/net8.0/PhysicalPersonsDirectory.Application.pdb
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/bin/Debug/net8.0/PhysicalPersonsDirectory.Domain.dll
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/bin/Debug/net8.0/PhysicalPersonsDirectory.Infrastructure.dll
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/bin/Debug/net8.0/PhysicalPersonsDirectory.Domain.pdb
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/bin/Debug/net8.0/PhysicalPersonsDirectory.Infrastructure.pdb
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/obj/Debug/net8.0/PhysicalPersonsDirectory.Application.csproj.AssemblyReference.cache
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/obj/Debug/net8.0/PhysicalPersonsDirectory.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/obj/Debug/net8.0/PhysicalPersonsDirectory.Application.AssemblyInfoInputs.cache
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/obj/Debug/net8.0/PhysicalPersonsDirectory.Application.AssemblyInfo.cs
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/obj/Debug/net8.0/PhysicalPersonsDirectory.Application.csproj.CoreCompileInputs.cache
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/obj/Debug/net8.0/Physical.612D77D3.Up2Date
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/obj/Debug/net8.0/PhysicalPersonsDirectory.Application.dll
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/obj/Debug/net8.0/refint/PhysicalPersonsDirectory.Application.dll
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/obj/Debug/net8.0/PhysicalPersonsDirectory.Application.pdb
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/obj/Debug/net8.0/ref/PhysicalPersonsDirectory.Application.dll

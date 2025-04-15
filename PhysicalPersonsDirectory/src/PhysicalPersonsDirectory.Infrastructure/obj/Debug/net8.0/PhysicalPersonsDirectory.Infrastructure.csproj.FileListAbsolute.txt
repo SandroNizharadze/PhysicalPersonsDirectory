@@ -1,0 +1,15 @@
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/bin/Debug/net8.0/PhysicalPersonsDirectory.Infrastructure.deps.json
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/bin/Debug/net8.0/PhysicalPersonsDirectory.Infrastructure.dll
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/bin/Debug/net8.0/PhysicalPersonsDirectory.Infrastructure.pdb
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/bin/Debug/net8.0/PhysicalPersonsDirectory.Domain.dll
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/bin/Debug/net8.0/PhysicalPersonsDirectory.Domain.pdb
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/obj/Debug/net8.0/PhysicalPersonsDirectory.Infrastructure.csproj.AssemblyReference.cache
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/obj/Debug/net8.0/PhysicalPersonsDirectory.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/obj/Debug/net8.0/PhysicalPersonsDirectory.Infrastructure.AssemblyInfoInputs.cache
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/obj/Debug/net8.0/PhysicalPersonsDirectory.Infrastructure.AssemblyInfo.cs
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/obj/Debug/net8.0/PhysicalPersonsDirectory.Infrastructure.csproj.CoreCompileInputs.cache
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/obj/Debug/net8.0/Physical.F902CB7C.Up2Date
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/obj/Debug/net8.0/PhysicalPersonsDirectory.Infrastructure.dll
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/obj/Debug/net8.0/refint/PhysicalPersonsDirectory.Infrastructure.dll
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/obj/Debug/net8.0/PhysicalPersonsDirectory.Infrastructure.pdb
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/obj/Debug/net8.0/ref/PhysicalPersonsDirectory.Infrastructure.dll

@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "PhysicalPersonsDirectory.Domain/1.0.0": {
+        "runtime": {
+          "PhysicalPersonsDirectory.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "PhysicalPersonsDirectory.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

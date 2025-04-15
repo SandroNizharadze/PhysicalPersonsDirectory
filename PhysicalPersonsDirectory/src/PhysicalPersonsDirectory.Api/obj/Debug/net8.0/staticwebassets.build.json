@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "XaDKFKeCdZ8mcEqg2sZ6IKUHXyXF8CMUxOsQ7vc9qKk=",
+  "Source": "PhysicalPersonsDirectory.Api",
+  "BasePath": "_content/PhysicalPersonsDirectory.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
