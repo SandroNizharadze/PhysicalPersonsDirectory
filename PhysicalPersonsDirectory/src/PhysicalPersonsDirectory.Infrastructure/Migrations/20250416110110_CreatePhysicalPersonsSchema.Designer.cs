@@ -12,8 +12,8 @@ using PhysicalPersonsDirectory.Infrastructure.Persistence;
 namespace PhysicalPersonsDirectory.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250415140830_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250416110110_CreatePhysicalPersonsSchema")]
+    partial class CreatePhysicalPersonsSchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,6 @@ namespace PhysicalPersonsDirectory.Infrastructure.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");

@@ -9,3 +9,4 @@
 /Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Domain/obj/Debug/net8.0/refint/PhysicalPersonsDirectory.Domain.dll
 /Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Domain/obj/Debug/net8.0/PhysicalPersonsDirectory.Domain.pdb
 /Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Domain/obj/Debug/net8.0/ref/PhysicalPersonsDirectory.Domain.dll
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Domain/obj/Debug/net8.0/PhysicalPersonsDirectory.Domain.sourcelink.json

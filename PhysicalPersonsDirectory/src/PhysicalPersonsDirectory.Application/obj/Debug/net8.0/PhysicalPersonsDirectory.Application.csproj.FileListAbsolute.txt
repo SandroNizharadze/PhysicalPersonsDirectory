@@ -15,3 +15,4 @@
 /Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/obj/Debug/net8.0/refint/PhysicalPersonsDirectory.Application.dll
 /Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/obj/Debug/net8.0/PhysicalPersonsDirectory.Application.pdb
 /Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/obj/Debug/net8.0/ref/PhysicalPersonsDirectory.Application.dll
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Application/obj/Debug/net8.0/PhysicalPersonsDirectory.Application.sourcelink.json

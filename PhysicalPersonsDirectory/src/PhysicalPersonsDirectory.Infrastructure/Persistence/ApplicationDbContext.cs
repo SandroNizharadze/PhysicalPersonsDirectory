@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using PhysicalPersonsDirectory.Domain;
 
 namespace PhysicalPersonsDirectory.Infrastructure.Persistence;
@@ -18,8 +19,23 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
     {
     }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder
+            .LogTo(Console.WriteLine, LogLevel.Debug) // Force SQL logging to console
+            .EnableSensitiveDataLogging()
+            .EnableDetailedErrors();
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<PhysicalPerson>()
+            .HasKey(p => p.Id);
+
+        modelBuilder.Entity<PhysicalPerson>()
+            .Property(p => p.Id)
+            .ValueGeneratedOnAdd();
+
         modelBuilder.Entity<PhysicalPerson>()
             .HasMany(p => p.PhoneNumbers)
             .WithOne()

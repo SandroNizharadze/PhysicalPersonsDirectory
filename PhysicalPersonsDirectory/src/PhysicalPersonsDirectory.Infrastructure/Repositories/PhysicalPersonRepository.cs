@@ -28,6 +28,15 @@ public class PhysicalPersonRepository : IPhysicalPersonRepository
         return person;
     }
 
+    public async Task AddAsync(PhysicalPerson person)
+    {
+        await _context.PhysicalPersons.AddAsync(person);
+        _context.Entry(person).State = EntityState.Added; // Ensure entity is tracked
+    }
+
+    
+
+
     public async Task<List<PhysicalPerson>> GetAllAsync()
     {
         return await _context.PhysicalPersons
@@ -35,11 +44,6 @@ public class PhysicalPersonRepository : IPhysicalPersonRepository
             .Include(p => p.RelatedPersons)
             .Include(p => p.City)
             .ToListAsync();
-    }
-
-    public async Task AddAsync(PhysicalPerson person)
-    {
-        await _context.PhysicalPersons.AddAsync(person);
     }
 
     public Task UpdateAsync(PhysicalPerson person)

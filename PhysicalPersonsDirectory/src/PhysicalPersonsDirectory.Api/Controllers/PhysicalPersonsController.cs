@@ -9,25 +9,38 @@ namespace PhysicalPersonsDirectory.Api.Controllers;
 [ApiController]
 public class PhysicalPersonsController : ControllerBase
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
 
-    public PhysicalPersonsController(IMediator mediator)
+    public PhysicalPersonsController(ISender sender)
     {
-        _mediator = mediator;
+        _sender = sender;
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreatePhysicalPersonCommand command)
+    public async Task<IActionResult> Create([FromBody] CreatePhysicalPersonCommand command, CancellationToken cancellationToken)
     {
-        var id = await _mediator.Send(command);
-        var person = await _mediator.Send(new GetPhysicalPersonByIdQuery { Id = id });
-        return CreatedAtAction(nameof(GetById), new { id }, person);
+        try
+        {
+            var personId = await _sender.Send(command, cancellationToken);
+            return CreatedAtAction(nameof(Get), new { id = personId }, new { Id = personId });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Error = "An error occurred while creating the person.", Details = ex.Message });
+        }
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> Get(int id, CancellationToken cancellationToken)
     {
-        var person = await _mediator.Send(new GetPhysicalPersonByIdQuery { Id = id });
-        return person != null ? Ok(person) : NotFound();
+        var query = new GetPhysicalPersonByIdQuery { Id = id };
+        var result = await _sender.Send(query, cancellationToken);
+
+        if (result == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(result);
     }
 }

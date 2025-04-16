@@ -3,6 +3,8 @@ using PhysicalPersonsDirectory.Application;
 using PhysicalPersonsDirectory.Infrastructure;
 using PhysicalPersonsDirectory.Api.Middleware;
 using Serilog;
+using PhysicalPersonsDirectory.Application.Validators;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,9 @@ builder.Services.AddControllers()
     .AddNewtonsoftJson();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Register FluentValidation
+builder.Services.AddValidatorsFromAssemblyContaining<CreatePhysicalPersonCommandValidator>();
 
 // Register application and infrastructure
 builder.Services.AddApplicationServices();

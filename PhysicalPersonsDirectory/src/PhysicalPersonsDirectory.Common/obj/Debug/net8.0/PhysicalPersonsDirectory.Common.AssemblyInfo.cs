@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PhysicalPersonsDirectory.Common")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b8fb814d026eb836f49a827831c312bf03d80202")]
 [assembly: System.Reflection.AssemblyProductAttribute("PhysicalPersonsDirectory.Common")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PhysicalPersonsDirectory.Common")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

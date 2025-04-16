@@ -10,18 +10,19 @@ public class PhysicalPerson
     public DateTime DateOfBirth { get; private set; }
     public int CityId { get; private set; }
     public City? City { get; private set; }
-    public List<PhoneNumber> PhoneNumbers { get; private set; } = [];
     public string? ImagePath { get; private set; }
-    public List<RelatedPerson> RelatedPersons { get; private set; } = [];
+    public List<PhoneNumber> PhoneNumbers { get; private set; } = new();
+    public List<RelatedPerson> RelatedPersons { get; private set; } = new();
 
-    public PhysicalPerson(string firstName, string lastName, Gender gender, string personalNumber,
-        DateTime dateOfBirth, int cityId)
+    public PhysicalPerson(string firstName, string lastName, Gender gender, string personalNumber, DateTime dateOfBirth, int cityId)
     {
-        FirstName = ValidateName(firstName);
-        LastName = ValidateName(lastName);
+        FirstName = firstName;
+        LastName = lastName;
         Gender = gender;
-        PersonalNumber = ValidatePersonalNumber(personalNumber);
-        DateOfBirth = ValidateDateOfBirth(dateOfBirth);
+        PersonalNumber = personalNumber;
+        DateOfBirth = dateOfBirth.Kind == DateTimeKind.Unspecified
+            ? DateTime.SpecifyKind(dateOfBirth, DateTimeKind.Utc)
+            : dateOfBirth.ToUniversalTime();
         CityId = cityId;
     }
 

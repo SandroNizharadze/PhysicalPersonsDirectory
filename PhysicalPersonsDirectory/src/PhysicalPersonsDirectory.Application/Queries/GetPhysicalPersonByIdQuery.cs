@@ -21,13 +21,10 @@ public class GetPhysicalPersonByIdQueryHandler : IRequestHandler<GetPhysicalPers
         _mapper = mapper;
     }
 
-    public async Task<PhysicalPersonDto> Handle(GetPhysicalPersonByIdQuery request, CancellationToken cancellationToken)
+    #pragma warning disable CS8613 // Nullability of reference types in return type doesn't match implicitly implemented member.
+    public async Task<PhysicalPersonDto?> Handle(GetPhysicalPersonByIdQuery request, CancellationToken cancellationToken)
     {
         var person = await _repository.GetByIdAsync(request.Id);
-        if (person == null)
-        {
-            return null;
-        }
-        return _mapper.Map<PhysicalPersonDto>(person);
+        return person == null ? null : _mapper.Map<PhysicalPersonDto>(person);
     }
 }

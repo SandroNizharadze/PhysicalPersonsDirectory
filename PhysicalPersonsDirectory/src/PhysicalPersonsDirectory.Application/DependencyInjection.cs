@@ -1,6 +1,7 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using PhysicalPersonsDirectory.Application.Commands;
 using PhysicalPersonsDirectory.Application.Mapping;
 using System.Reflection;
 
@@ -13,6 +14,7 @@ public static class DependencyInjection
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         services.AddAutoMapper(typeof(PhysicalPersonProfile).Assembly);
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddScoped<CreatePhysicalPersonCommandHandler>();
         return services;
     }
 }
