@@ -2,7 +2,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using PhysicalPersonsDirectory.Application.Commands;
-using PhysicalPersonsDirectory.Application.Mapping;
+using PhysicalPersonsDirectory.Application.Mappings;
 using System.Reflection;
 
 namespace PhysicalPersonsDirectory.Application;
