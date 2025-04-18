@@ -43,4 +43,38 @@ public class PhysicalPersonsController : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, [FromBody] UpdatePhysicalPersonCommand command, CancellationToken cancellationToken)
+    {
+        if (id != command.Id)
+        {
+            return BadRequest(new { Error = "ID in URL does not match ID in body." });
+        }
+
+        try
+        {
+            await _sender.Send(command, cancellationToken);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Error = "An error occurred while updating the person.", Details = ex.Message });
+        }
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var command = new DeletePhysicalPersonCommand { Id = id };
+            await _sender.Send(command, cancellationToken);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Error = "An error occurred while deleting the person.", Details = ex.Message });
+        }
+    }
 }

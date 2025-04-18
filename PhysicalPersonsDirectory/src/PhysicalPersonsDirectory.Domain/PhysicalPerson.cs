@@ -10,19 +10,17 @@ public class PhysicalPerson
     public DateTime DateOfBirth { get; private set; }
     public int CityId { get; private set; }
     public City? City { get; private set; }
-    public string? ImagePath { get; private set; }
+    public string? ImagePath { get; set; }
     public List<PhoneNumber> PhoneNumbers { get; private set; } = new();
     public List<RelatedPerson> RelatedPersons { get; private set; } = new();
 
     public PhysicalPerson(string firstName, string lastName, Gender gender, string personalNumber, DateTime dateOfBirth, int cityId)
     {
-        FirstName = firstName;
-        LastName = lastName;
+        FirstName = ValidateName(firstName);
+        LastName = ValidateName(lastName);
         Gender = gender;
-        PersonalNumber = personalNumber;
-        DateOfBirth = dateOfBirth.Kind == DateTimeKind.Unspecified
-            ? DateTime.SpecifyKind(dateOfBirth, DateTimeKind.Utc)
-            : dateOfBirth.ToUniversalTime();
+        PersonalNumber = ValidatePersonalNumber(personalNumber);
+        DateOfBirth = ValidateDateOfBirth(dateOfBirth);
         CityId = cityId;
     }
 
@@ -47,6 +45,10 @@ public class PhysicalPerson
 
     private DateTime ValidateDateOfBirth(DateTime dob)
     {
+        if (dob.Kind == DateTimeKind.Unspecified)
+            dob = DateTime.SpecifyKind(dob, DateTimeKind.Utc);
+        else if (dob.Kind == DateTimeKind.Local)
+            dob = dob.ToUniversalTime();
         if (dob > DateTime.Now.AddYears(-18))
             throw new DomainException("Person must be at least 18 years old.");
 
@@ -68,6 +70,18 @@ public class PhysicalPerson
 
     public void RemoveRelatedPerson(int relatedPersonId) => 
         RelatedPersons.RemoveAll(r => r.RelatedPhysicalPersonId == relatedPersonId);
+        
+    public void Update(string firstName, string lastName, Gender gender, string personalNumber, DateTime dateOfBirth, int cityId)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+        Gender = gender;
+        PersonalNumber = personalNumber;
+        DateOfBirth = dateOfBirth.Kind == DateTimeKind.Unspecified
+            ? DateTime.SpecifyKind(dateOfBirth, DateTimeKind.Utc)
+            : dateOfBirth.ToUniversalTime();
+        CityId = cityId;
+    }
 }
 
 public enum Gender
