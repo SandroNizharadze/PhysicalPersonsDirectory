@@ -77,4 +77,22 @@ public class PhysicalPersonsController : ControllerBase
             return StatusCode(500, new { Error = "An error occurred while deleting the person.", Details = ex.Message });
         }
     }
+
+    [HttpPost("{id}/image")]
+    public async Task<IActionResult> UploadImage(int id, IFormFile file, CancellationToken cancellationToken)
+    {
+        if (file == null || file.Length == 0)
+        {
+            return BadRequest(new { Error = "ImageRequired" });
+        }
+
+        var command = new UploadPhysicalPersonImageCommand
+        {
+            Id = id,
+            File = file
+        };
+
+        var imagePath = await _sender.Send(command, cancellationToken);
+        return Ok(new { ImagePath = imagePath });
+    }
 }

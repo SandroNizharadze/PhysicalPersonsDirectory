@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Api/wwwroot/uploads/1a11b6c9-e08c-4f8d-9172-8955416a0560.png",
+      "PackagePath": "staticwebassets/uploads/1a11b6c9-e08c-4f8d-9172-8955416a0560.png"
+    },
+    {
+      "Id": "/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Api/wwwroot/uploads/9eedd605-aa11-48e3-8b76-68c5dddce8b9.png",
+      "PackagePath": "staticwebassets/uploads/9eedd605-aa11-48e3-8b76-68c5dddce8b9.png"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.PhysicalPersonsDirectory.Api.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.PhysicalPersonsDirectory.Api.props",
+      "PackagePath": "build\\PhysicalPersonsDirectory.Api.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.PhysicalPersonsDirectory.Api.props",
+      "PackagePath": "buildMultiTargeting\\PhysicalPersonsDirectory.Api.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.PhysicalPersonsDirectory.Api.props",
+      "PackagePath": "buildTransitive\\PhysicalPersonsDirectory.Api.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

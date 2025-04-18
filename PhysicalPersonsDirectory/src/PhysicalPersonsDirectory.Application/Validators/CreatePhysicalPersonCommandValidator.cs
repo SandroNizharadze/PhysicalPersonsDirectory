@@ -1,5 +1,7 @@
 using FluentValidation;
 using PhysicalPersonsDirectory.Application.Commands;
+using PhysicalPersonsDirectory.Application.DTOs;
+using System.Text.RegularExpressions;
 
 namespace PhysicalPersonsDirectory.Application.Validators;
 
@@ -8,41 +10,54 @@ public class CreatePhysicalPersonCommandValidator : AbstractValidator<CreatePhys
     public CreatePhysicalPersonCommandValidator()
     {
         RuleFor(x => x.FirstName)
-            .NotEmpty()
-            .Length(2, 50)
-            .Must(BeGeorgianOrLatin)
-            .WithMessage("First name must be 2-50 characters and contain only Georgian or Latin letters.");
+            .NotEmpty().WithMessage("FirstNameRequired")
+            .Length(2, 50).WithMessage("FirstNameLength")
+            .Must(BeGeorgianOrLatin).WithMessage("FirstNameGeorgianOrLatin");
 
         RuleFor(x => x.LastName)
-            .NotEmpty()
-            .Length(2, 50)
-            .Must(BeGeorgianOrLatin)
-            .WithMessage("Last name must be 2-50 characters and contain only Georgian or Latin letters.");
+            .NotEmpty().WithMessage("LastNameRequired")
+            .Length(2, 50).WithMessage("LastNameLength")
+            .Must(BeGeorgianOrLatin).WithMessage("LastNameGeorgianOrLatin");
 
         RuleFor(x => x.PersonalNumber)
-            .NotEmpty()
-            .Length(11)
-            .Matches(@"^\d{11}$")
-            .WithMessage("Personal number must be 11 digits.");
+            .NotEmpty().WithMessage("PersonalNumberRequired")
+            .Length(11).WithMessage("PersonalNumberLength")
+            .Matches(@"^\d+$").WithMessage("PersonalNumberDigits");
 
         RuleFor(x => x.DateOfBirth)
-            .Must(dob => dob <= DateTime.Now.AddYears(-18))
-            .WithMessage("Person must be at least 18 years old.");
+            .NotEmpty().WithMessage("DateOfBirthRequired")
+            .Must(BeAtLeast18YearsOld).WithMessage("DateOfBirthMinimumAge");
+
+        RuleFor(x => x.CityId)
+            .GreaterThan(0).WithMessage("CityIdRequired");
+
+        RuleFor(x => x.PhoneNumbers)
+            .NotEmpty().WithMessage("PhoneNumbersRequired");
 
         RuleForEach(x => x.PhoneNumbers)
-            .ChildRules(phone =>
-            {
-                phone.RuleFor(p => p.Number)
-                    .Length(4, 50)
-                    .WithMessage("Phone number must be 4-50 characters.");
-            });
+            .SetValidator(new PhoneNumberDtoValidator());
     }
 
-    private bool BeGeorgianOrLatin(string text)
+    private bool BeGeorgianOrLatin(string name)
     {
-        if (string.IsNullOrWhiteSpace(text)) return false;
-        bool isGeorgian = text.All(c => c >= 0x10D0 && c <= 0x10FF);
-        bool isLatin = text.All(c => (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
-        return isGeorgian || isLatin;
+        if (string.IsNullOrEmpty(name)) return false;
+        var georgian = @"^[\u10A0-\u10FF]+$";
+        var latin = @"^[a-zA-Z]+$";
+        return Regex.IsMatch(name, georgian) || Regex.IsMatch(name, latin);
+    }
+
+    private bool BeAtLeast18YearsOld(DateTime dateOfBirth)
+    {
+        return dateOfBirth <= DateTime.UtcNow.AddYears(-18);
+    }
+}
+
+public class PhoneNumberDtoValidator : AbstractValidator<PhoneNumberDto>
+{
+    public PhoneNumberDtoValidator()
+    {
+        RuleFor(x => x.Number)
+            .NotEmpty().WithMessage("PhoneNumberRequired")
+            .Length(9, 12).WithMessage("PhoneNumberLength");
     }
 }

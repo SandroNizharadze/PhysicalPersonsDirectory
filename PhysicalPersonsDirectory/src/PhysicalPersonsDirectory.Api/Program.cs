@@ -5,6 +5,8 @@ using PhysicalPersonsDirectory.Api.Middleware;
 using Serilog;
 using PhysicalPersonsDirectory.Application.Validators;
 using FluentValidation;
+using PhysicalPersonsDirectory.Api.Filters;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +16,14 @@ builder.Host.UseSerilog((ctx, lc) => lc
     .ReadFrom.Configuration(ctx.Configuration));
 
 // Add services
-builder.Services.AddControllers()
-    .AddNewtonsoftJson();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ValidationFilter>();
+})
+.AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -41,5 +49,6 @@ app.UseMiddleware<LocalizationMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+app.UseStaticFiles();
 
 app.Run();

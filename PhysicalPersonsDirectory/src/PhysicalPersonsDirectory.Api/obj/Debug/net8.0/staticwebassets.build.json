@@ -1,11 +1,58 @@
 {
   "Version": 1,
-  "Hash": "XaDKFKeCdZ8mcEqg2sZ6IKUHXyXF8CMUxOsQ7vc9qKk=",
+  "Hash": "eWQshGTxlnrwpZz+HkPYWXiwgFfNULbfI+IsN/RXjQ4=",
   "Source": "PhysicalPersonsDirectory.Api",
   "BasePath": "_content/PhysicalPersonsDirectory.Api",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "PhysicalPersonsDirectory.Api/wwwroot",
+      "Source": "PhysicalPersonsDirectory.Api",
+      "ContentRoot": "/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Api/wwwroot/",
+      "BasePath": "_content/PhysicalPersonsDirectory.Api",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Api/wwwroot/uploads/1a11b6c9-e08c-4f8d-9172-8955416a0560.png",
+      "SourceId": "PhysicalPersonsDirectory.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Api/wwwroot/",
+      "BasePath": "_content/PhysicalPersonsDirectory.Api",
+      "RelativePath": "uploads/1a11b6c9-e08c-4f8d-9172-8955416a0560.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/uploads/1a11b6c9-e08c-4f8d-9172-8955416a0560.png"
+    },
+    {
+      "Identity": "/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Api/wwwroot/uploads/9eedd605-aa11-48e3-8b76-68c5dddce8b9.png",
+      "SourceId": "PhysicalPersonsDirectory.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Api/wwwroot/",
+      "BasePath": "_content/PhysicalPersonsDirectory.Api",
+      "RelativePath": "uploads/9eedd605-aa11-48e3-8b76-68c5dddce8b9.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/uploads/9eedd605-aa11-48e3-8b76-68c5dddce8b9.png"
+    }
+  ]
 }
