@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PhysicalPersonsDirectory.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0265e542d9517ab49a3cb481cbb7604c7b955dd3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5aa4159f7a300750af16f41465b6b7f85ef62cab")]
 [assembly: System.Reflection.AssemblyProductAttribute("PhysicalPersonsDirectory.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PhysicalPersonsDirectory.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

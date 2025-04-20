@@ -48,6 +48,14 @@ public class PhysicalPersonsController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("report")]
+    public async Task<IActionResult> GetRelatedPersonsReport(CancellationToken cancellationToken)
+    {
+        var query = new GetRelatedPersonsReportQuery();
+        var report = await _sender.Send(query, cancellationToken);
+        return Ok(report);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreatePhysicalPersonCommand command, CancellationToken cancellationToken)
     {
