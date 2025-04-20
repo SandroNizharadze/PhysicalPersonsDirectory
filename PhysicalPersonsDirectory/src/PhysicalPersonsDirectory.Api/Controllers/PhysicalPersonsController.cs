@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PhysicalPersonsDirectory.Application.Commands;
 using PhysicalPersonsDirectory.Application.Queries;
+using PhysicalPersonsDirectory.Domain;
 
 namespace PhysicalPersonsDirectory.Api.Controllers;
 
@@ -19,15 +20,8 @@ public class PhysicalPersonsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreatePhysicalPersonCommand command, CancellationToken cancellationToken)
     {
-        try
-        {
-            var personId = await _sender.Send(command, cancellationToken);
-            return CreatedAtAction(nameof(Get), new { id = personId }, new { Id = personId });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "An error occurred while creating the person.", Details = ex.Message });
-        }
+        var personId = await _sender.Send(command, cancellationToken);
+        return CreatedAtAction(nameof(Get), new { id = personId }, new { Id = personId });
     }
 
     [HttpGet("{id}")]
@@ -52,30 +46,16 @@ public class PhysicalPersonsController : ControllerBase
             return BadRequest(new { Error = "ID in URL does not match ID in body." });
         }
 
-        try
-        {
-            await _sender.Send(command, cancellationToken);
-            return NoContent();
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "An error occurred while updating the person.", Details = ex.Message });
-        }
+        await _sender.Send(command, cancellationToken);
+        return NoContent();
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
     {
-        try
-        {
-            var command = new DeletePhysicalPersonCommand { Id = id };
-            await _sender.Send(command, cancellationToken);
-            return NoContent();
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "An error occurred while deleting the person.", Details = ex.Message });
-        }
+        var command = new DeletePhysicalPersonCommand { Id = id };
+        await _sender.Send(command, cancellationToken);
+        return NoContent();
     }
 
     [HttpPost("{id}/image")]
@@ -83,7 +63,7 @@ public class PhysicalPersonsController : ControllerBase
     {
         if (file == null || file.Length == 0)
         {
-            return BadRequest(new { Error = "ImageRequired" });
+            return BadRequest(new { Error = "ImageRequired", Details = "No file was uploaded." });
         }
 
         var command = new UploadPhysicalPersonImageCommand
@@ -92,7 +72,47 @@ public class PhysicalPersonsController : ControllerBase
             File = file
         };
 
-        var imagePath = await _sender.Send(command, cancellationToken);
-        return Ok(new { ImagePath = imagePath });
+        try
+        {
+            var imagePath = await _sender.Send(command, cancellationToken);
+            return Ok(new { ImagePath = imagePath });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { Error = "ImageUploadFailed", Details = ex.Message });
+        }
     }
+
+    [HttpPost("{id}/related")]
+    public async Task<IActionResult> AddRelatedPerson(int id, [FromBody] AddRelatedPersonRequest request, CancellationToken cancellationToken)
+    {
+        var command = new AddRelatedPersonCommand
+        {
+            Id = id,
+            RelatedPhysicalPersonId = request.RelatedPhysicalPersonId,
+            RelationType = request.RelationType
+        };
+
+        await _sender.Send(command, cancellationToken);
+        return Ok();
+    }
+
+    [HttpDelete("{id}/related/{relatedId}")]
+    public async Task<IActionResult> RemoveRelatedPerson(int id, int relatedId, CancellationToken cancellationToken)
+    {
+        var command = new RemoveRelatedPersonCommand
+        {
+            Id = id,
+            RelatedPhysicalPersonId = relatedId
+        };
+
+        await _sender.Send(command, cancellationToken);
+        return NoContent();
+    }
+}
+
+public class AddRelatedPersonRequest
+{
+    public int RelatedPhysicalPersonId { get; set; }
+    public RelationType RelationType { get; set; }
 }

@@ -21,10 +21,10 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder
-            .LogTo(Console.WriteLine, LogLevel.Debug) // Force SQL logging to console
-            .EnableSensitiveDataLogging()
-            .EnableDetailedErrors();
+        // optionsBuilder
+        //     .LogTo(Console.WriteLine, LogLevel.Debug) // Force SQL logging to console
+        //     .EnableSensitiveDataLogging()
+        //     .EnableDetailedErrors();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

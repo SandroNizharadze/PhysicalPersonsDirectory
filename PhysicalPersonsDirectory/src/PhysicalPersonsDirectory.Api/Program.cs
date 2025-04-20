@@ -1,12 +1,11 @@
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using PhysicalPersonsDirectory.Application;
 using PhysicalPersonsDirectory.Infrastructure;
+using System.Text.Json.Serialization;
+using PhysicalPersonsDirectory.Api.Filters;
 using PhysicalPersonsDirectory.Api.Middleware;
 using Serilog;
-using PhysicalPersonsDirectory.Application.Validators;
-using FluentValidation;
-using PhysicalPersonsDirectory.Api.Filters;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +14,13 @@ builder.Host.UseSerilog((ctx, lc) => lc
     .WriteTo.Console()
     .ReadFrom.Configuration(ctx.Configuration));
 
-// Add services
+// Configure Kestrel to use settings from appsettings.json
+builder.WebHost.ConfigureKestrel((context, options) =>
+{
+    options.Configure(context.Configuration.GetSection("Kestrel"));
+});
+
+// Add services to the container.
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ValidationFilter>();
@@ -24,29 +29,38 @@ builder.Services.AddControllers(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
+
+// Add Swagger generation
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "Physical Persons Directory API",
+        Version = "v1",
+        Description = "API for managing physical persons and their details."
+    });
+});
 
-// Register FluentValidation
-builder.Services.AddValidatorsFromAssemblyContaining<CreatePhysicalPersonCommandValidator>();
-
-// Register application and infrastructure
-builder.Services.AddApplicationServices();
+// Register application and infrastructure services
 builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 
-// Configure middleware
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Physical Persons Directory API V1");
+        c.RoutePrefix = string.Empty;
+    });
 }
 
-app.UseMiddleware<ExceptionMiddleware>();
-app.UseMiddleware<LocalizationMiddleware>();
 
-app.UseHttpsRedirection();
+
 app.UseAuthorization();
 app.MapControllers();
 app.UseStaticFiles();

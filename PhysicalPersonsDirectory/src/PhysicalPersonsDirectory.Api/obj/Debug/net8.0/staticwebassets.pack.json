@@ -1,8 +1,16 @@
 {
   "Files": [
     {
+      "Id": "/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Api/wwwroot/uploads/19b983fa-110a-47b1-96d0-4769bdb8baad.png",
+      "PackagePath": "staticwebassets/uploads/19b983fa-110a-47b1-96d0-4769bdb8baad.png"
+    },
+    {
       "Id": "/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Api/wwwroot/uploads/1a11b6c9-e08c-4f8d-9172-8955416a0560.png",
       "PackagePath": "staticwebassets/uploads/1a11b6c9-e08c-4f8d-9172-8955416a0560.png"
+    },
+    {
+      "Id": "/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Api/wwwroot/uploads/590fe2a6-9712-42a3-b3c0-e851fe3a3e33.png",
+      "PackagePath": "staticwebassets/uploads/590fe2a6-9712-42a3-b3c0-e851fe3a3e33.png"
     },
     {
       "Id": "/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Api/wwwroot/uploads/9eedd605-aa11-48e3-8b76-68c5dddce8b9.png",

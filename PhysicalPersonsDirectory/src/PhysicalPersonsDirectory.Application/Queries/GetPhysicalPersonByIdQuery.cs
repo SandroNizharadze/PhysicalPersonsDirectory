@@ -1,7 +1,9 @@
 using AutoMapper;
 using MediatR;
 using PhysicalPersonsDirectory.Application.DTOs;
-using PhysicalPersonsDirectory.Domain.Interfaces;
+using PhysicalPersonsDirectory.Domain;
+using PhysicalPersonsDirectory.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace PhysicalPersonsDirectory.Application.Queries;
 
@@ -12,19 +14,32 @@ public class GetPhysicalPersonByIdQuery : IRequest<PhysicalPersonDto>
 
 public class GetPhysicalPersonByIdQueryHandler : IRequestHandler<GetPhysicalPersonByIdQuery, PhysicalPersonDto>
 {
-    private readonly IPhysicalPersonRepository _repository;
+    private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
 
-    public GetPhysicalPersonByIdQueryHandler(IPhysicalPersonRepository repository, IMapper mapper)
+    public GetPhysicalPersonByIdQueryHandler(ApplicationDbContext context, IMapper mapper)
     {
-        _repository = repository;
+        _context = context;
         _mapper = mapper;
     }
 
-    #pragma warning disable CS8613 // Nullability of reference types in return type doesn't match implicitly implemented member.
-    public async Task<PhysicalPersonDto?> Handle(GetPhysicalPersonByIdQuery request, CancellationToken cancellationToken)
+    public async Task<PhysicalPersonDto> Handle(GetPhysicalPersonByIdQuery request, CancellationToken cancellationToken)
     {
-        var person = await _repository.GetByIdAsync(request.Id);
-        return person == null ? null : _mapper.Map<PhysicalPersonDto>(person);
+        var person = await _context.PhysicalPersons
+            .AsNoTracking()
+            .AsSplitQuery()
+            .Include(p => p.PhoneNumbers)
+            .Include(p => p.RelatedPersons)
+            .Include(p => p.City)
+            .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
+
+        if (person == null)
+        {
+#pragma warning disable CS8603 // Possible null reference return.
+            return null;
+#pragma warning restore CS8603 // Possible null reference return.
+        }
+
+        return _mapper.Map<PhysicalPersonDto>(person);
     }
 }
