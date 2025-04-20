@@ -31,7 +31,7 @@ public class PhysicalPersonRepository : IPhysicalPersonRepository
     public async Task AddAsync(PhysicalPerson person)
     {
         await _context.PhysicalPersons.AddAsync(person);
-        _context.Entry(person).State = EntityState.Added; // Ensure entity is tracked
+        _context.Entry(person).State = EntityState.Added; 
     }
 
     

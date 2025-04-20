@@ -17,11 +17,10 @@ public class LocalizationMiddleware
     public async Task InvokeAsync(HttpContext context)
     {
         var acceptLanguage = context.Request.Headers["Accept-Language"].FirstOrDefault();
-        var culture = "en-US"; // Default culture
+        var culture = "en-US"; 
 
         if (!string.IsNullOrEmpty(acceptLanguage))
         {
-            // Split and take the first valid culture code (e.g., "en-US" from "en-US,en;q=0.9")
             var languageCode = acceptLanguage.Split(',').FirstOrDefault()?.Split(';').FirstOrDefault();
             if (!string.IsNullOrEmpty(languageCode) && IsValidCulture(languageCode))
             {

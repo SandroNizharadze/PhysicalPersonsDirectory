@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PhysicalPersonsDirectory.Application.Commands;
 using PhysicalPersonsDirectory.Application.Queries;
 using PhysicalPersonsDirectory.Domain;
+using System.ComponentModel.DataAnnotations;
 
 namespace PhysicalPersonsDirectory.Api.Controllers;
 
@@ -15,6 +16,36 @@ public class PhysicalPersonsController : ControllerBase
     public PhysicalPersonsController(ISender sender)
     {
         _sender = sender;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetList(
+        [FromQuery] string? quickSearch,
+        [FromQuery] string? firstName,
+        [FromQuery] string? lastName,
+        [FromQuery] string? personalNumber,
+        [FromQuery] Gender? gender,
+        [FromQuery] DateTime? dateOfBirth,
+        [FromQuery] int? cityId,
+        [FromQuery] int pageNumber = 1,
+        [FromQuery] int pageSize = 10,
+        CancellationToken cancellationToken = default)
+    {
+        var query = new GetPhysicalPersonsQuery
+        {
+            QuickSearch = quickSearch,
+            FirstName = firstName,
+            LastName = lastName,
+            PersonalNumber = personalNumber,
+            Gender = gender,
+            DateOfBirth = dateOfBirth,
+            CityId = cityId,
+            PageNumber = pageNumber,
+            PageSize = pageSize
+        };
+
+        var result = await _sender.Send(query, cancellationToken);
+        return Ok(result);
     }
 
     [HttpPost]
@@ -86,6 +117,11 @@ public class PhysicalPersonsController : ControllerBase
     [HttpPost("{id}/related")]
     public async Task<IActionResult> AddRelatedPerson(int id, [FromBody] AddRelatedPersonRequest request, CancellationToken cancellationToken)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(new { Error = "ValidationFailed", Details = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+        }
+
         var command = new AddRelatedPersonCommand
         {
             Id = id,
@@ -93,8 +129,15 @@ public class PhysicalPersonsController : ControllerBase
             RelationType = request.RelationType
         };
 
-        await _sender.Send(command, cancellationToken);
-        return Ok();
+        try
+        {
+            await _sender.Send(command, cancellationToken);
+            return Ok();
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { Error = "InvalidRequest", Details = ex.Message });
+        }
     }
 
     [HttpDelete("{id}/related/{relatedId}")]
@@ -106,13 +149,24 @@ public class PhysicalPersonsController : ControllerBase
             RelatedPhysicalPersonId = relatedId
         };
 
-        await _sender.Send(command, cancellationToken);
-        return NoContent();
+        try
+        {
+            await _sender.Send(command, cancellationToken);
+            return NoContent();
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { Error = "InvalidRequest", Details = ex.Message });
+        }
     }
 }
 
 public class AddRelatedPersonRequest
 {
+    [Required(ErrorMessage = "RelatedPhysicalPersonIdRequired")]
+    [Range(1, int.MaxValue, ErrorMessage = "RelatedPhysicalPersonIdMustBePositive")]
     public int RelatedPhysicalPersonId { get; set; }
+
+    [Required(ErrorMessage = "RelationTypeRequired")]
     public RelationType RelationType { get; set; }
 }
