@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="../buildMultiTargeting/PhysicalPersonsDirectory.Api.props" />
-</Project>

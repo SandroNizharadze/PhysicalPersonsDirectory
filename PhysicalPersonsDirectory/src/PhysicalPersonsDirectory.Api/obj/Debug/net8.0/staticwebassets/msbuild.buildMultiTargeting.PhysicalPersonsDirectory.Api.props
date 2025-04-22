@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="../build/PhysicalPersonsDirectory.Api.props" />
-</Project>
