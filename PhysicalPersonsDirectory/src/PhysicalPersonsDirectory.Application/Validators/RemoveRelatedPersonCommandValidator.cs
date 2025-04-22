@@ -1,17 +1,17 @@
 using FluentValidation;
+using Microsoft.Extensions.Localization;
 using PhysicalPersonsDirectory.Application.Commands;
-
-namespace PhysicalPersonsDirectory.Application.Validators;
+using PhysicalPersonsDirectory.Application.Validators;
 
 public class RemoveRelatedPersonCommandValidator : AbstractValidator<RemoveRelatedPersonCommand>
 {
-    public RemoveRelatedPersonCommandValidator()
+    public RemoveRelatedPersonCommandValidator(IStringLocalizer<SharedResources> localizer)
     {
         RuleFor(x => x.Id)
-            .GreaterThan(0).WithMessage("IdRequired");
+            .GreaterThan(0).WithMessage(localizer["IdRequired"].Value);
 
         RuleFor(x => x.RelatedPhysicalPersonId)
-            .GreaterThan(0).WithMessage("RelatedPhysicalPersonIdRequired")
-            .NotEqual(x => x.Id).WithMessage("CannotRelateToSelf");
+            .GreaterThan(0).WithMessage(localizer["RelatedPhysicalPersonIdRequired"].Value)
+            .NotEqual(x => x.Id).WithMessage(localizer["CannotRelateToSelf"].Value);
     }
 }

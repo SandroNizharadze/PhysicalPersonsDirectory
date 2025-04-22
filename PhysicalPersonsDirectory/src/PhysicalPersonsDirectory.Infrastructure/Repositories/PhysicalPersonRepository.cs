@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PhysicalPersonsDirectory.Domain;
 using PhysicalPersonsDirectory.Domain.Interfaces;
-using PhysicalPersonsDirectory.Infrastructure.Persistence;
 
 namespace PhysicalPersonsDirectory.Infrastructure.Repositories;
 

@@ -1,43 +1,45 @@
 using FluentValidation;
+using Microsoft.Extensions.Localization;
 using PhysicalPersonsDirectory.Application.Commands;
+using PhysicalPersonsDirectory.Application.DTOs;
 using System.Text.RegularExpressions;
 
 namespace PhysicalPersonsDirectory.Application.Validators;
 
 public class UpdatePhysicalPersonCommandValidator : AbstractValidator<UpdatePhysicalPersonCommand>
 {
-    public UpdatePhysicalPersonCommandValidator()
+    public UpdatePhysicalPersonCommandValidator(IStringLocalizer<SharedResources> localizer)
     {
         RuleFor(x => x.Id)
-            .GreaterThan(0).WithMessage("IdRequired");
+            .GreaterThan(0).WithMessage(localizer["IdRequired"].Value);
 
         RuleFor(x => x.FirstName)
-            .NotEmpty().WithMessage("FirstNameRequired")
-            .Length(2, 50).WithMessage("FirstNameLength")
-            .Must(BeGeorgianOrLatin).WithMessage("FirstNameGeorgianOrLatin");
+            .NotEmpty().WithMessage(localizer["FirstNameRequired"].Value)
+            .Length(2, 50).WithMessage(localizer["FirstNameLength"].Value)
+            .Must(BeGeorgianOrLatin).WithMessage(localizer["FirstNameGeorgianOrLatin"].Value);
 
         RuleFor(x => x.LastName)
-            .NotEmpty().WithMessage("LastNameRequired")
-            .Length(2, 50).WithMessage("LastNameLength")
-            .Must(BeGeorgianOrLatin).WithMessage("LastNameGeorgianOrLatin");
+            .NotEmpty().WithMessage(localizer["LastNameRequired"].Value)
+            .Length(2, 50).WithMessage(localizer["LastNameLength"].Value)
+            .Must(BeGeorgianOrLatin).WithMessage(localizer["LastNameGeorgianOrLatin"].Value);
 
         RuleFor(x => x.PersonalNumber)
-            .NotEmpty().WithMessage("PersonalNumberRequired")
-            .Length(11).WithMessage("PersonalNumberLength")
-            .Matches(@"^\d+$").WithMessage("PersonalNumberDigits");
+            .NotEmpty().WithMessage(localizer["PersonalNumberRequired"].Value)
+            .Length(11).WithMessage(localizer["PersonalNumberLength"].Value)
+            .Matches(@"^\d+$").WithMessage(localizer["PersonalNumberDigits"].Value);
 
         RuleFor(x => x.DateOfBirth)
-            .NotEmpty().WithMessage("DateOfBirthRequired")
-            .Must(BeAtLeast18YearsOld).WithMessage("DateOfBirthMinimumAge");
+            .NotEmpty().WithMessage(localizer["DateOfBirthRequired"].Value)
+            .Must(BeAtLeast18YearsOld).WithMessage(localizer["DateOfBirthMinimumAge"].Value);
 
         RuleFor(x => x.CityId)
-            .GreaterThan(0).WithMessage("CityIdRequired");
+            .GreaterThan(0).WithMessage(localizer["CityIdRequired"].Value);
 
         RuleFor(x => x.PhoneNumbers)
-            .NotEmpty().WithMessage("PhoneNumbersRequired");
+            .NotEmpty().WithMessage(localizer["PhoneNumbersRequired"].Value);
 
         RuleForEach(x => x.PhoneNumbers)
-            .SetValidator(new PhoneNumberDtoValidator());
+            .SetValidator(new PhoneNumberDtoValidator(localizer));
     }
 
     private bool BeGeorgianOrLatin(string name)
@@ -53,3 +55,4 @@ public class UpdatePhysicalPersonCommandValidator : AbstractValidator<UpdatePhys
         return dateOfBirth <= DateTime.UtcNow.AddYears(-18);
     }
 }
+

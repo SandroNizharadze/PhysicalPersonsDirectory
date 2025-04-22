@@ -2,7 +2,7 @@ using AutoMapper;
 using MediatR;
 using PhysicalPersonsDirectory.Application.DTOs;
 using PhysicalPersonsDirectory.Domain;
-using PhysicalPersonsDirectory.Infrastructure.Persistence;
+using PhysicalPersonsDirectory.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace PhysicalPersonsDirectory.Application.Queries;

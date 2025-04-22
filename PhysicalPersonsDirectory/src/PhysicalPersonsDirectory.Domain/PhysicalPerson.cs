@@ -27,10 +27,10 @@ public class PhysicalPerson
     private string ValidateName(string name)
     {
         if (string.IsNullOrWhiteSpace(name) || name.Length < 2 || name.Length > 50)
-            throw new DomainException("Name must be between 2 and 50 characters.");
+            throw new DomainException("NameLengthInvalid");
         
         if (!IsGeorgianOrLatin(name))
-            throw new DomainException("Name must contain only Georgian or Latin letters.");
+            throw new DomainException("NameGeorgianOrLatinInvalid");
 
         return name;
     }
@@ -38,7 +38,7 @@ public class PhysicalPerson
     private string ValidatePersonalNumber(string number)
     {
         if (number.Length != 11 || !number.All(char.IsDigit))
-            throw new DomainException("Personal number must be 11 digits.");
+            throw new DomainException("PersonalNumberInvalid");
 
         return number;
     }
@@ -49,8 +49,8 @@ public class PhysicalPerson
             dob = DateTime.SpecifyKind(dob, DateTimeKind.Utc);
         else if (dob.Kind == DateTimeKind.Local)
             dob = dob.ToUniversalTime();
-        if (dob > DateTime.Now.AddYears(-18))
-            throw new DomainException("Person must be at least 18 years old.");
+        if (dob > DateTime.UtcNow.AddYears(-18))
+            throw new DomainException("DateOfBirthMinimumAgeInvalid");
 
         return dob;
     }
@@ -73,21 +73,19 @@ public class PhysicalPerson
         
     public void Update(string firstName, string lastName, Gender gender, string personalNumber, DateTime dateOfBirth, int cityId)
     {
-        FirstName = firstName;
-        LastName = lastName;
+        FirstName = ValidateName(firstName);
+        LastName = ValidateName(lastName);
         Gender = gender;
-        PersonalNumber = personalNumber;
-        DateOfBirth = dateOfBirth.Kind == DateTimeKind.Unspecified
-            ? DateTime.SpecifyKind(dateOfBirth, DateTimeKind.Utc)
-            : dateOfBirth.ToUniversalTime();
+        PersonalNumber = ValidatePersonalNumber(personalNumber);
+        DateOfBirth = ValidateDateOfBirth(dateOfBirth);
         CityId = cityId;
     }
 }
 
 public enum Gender
 {
-    Female,
-    Male
+    Male = 0,
+    Female = 1
 }
 
 public class PhoneNumber
@@ -106,7 +104,7 @@ public class PhoneNumber
     private string ValidateNumber(string number)
     {
         if (string.IsNullOrWhiteSpace(number) || number.Length < 4 || number.Length > 50)
-            throw new DomainException("Phone number must be between 4 and 50 characters.");
+            throw new DomainException("PhoneNumberLengthInvalid");
         return number;
     }
 }

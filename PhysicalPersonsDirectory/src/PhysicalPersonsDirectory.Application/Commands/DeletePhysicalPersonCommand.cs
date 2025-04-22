@@ -1,5 +1,5 @@
 using MediatR;
-using PhysicalPersonsDirectory.Infrastructure.Persistence;
+using PhysicalPersonsDirectory.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace PhysicalPersonsDirectory.Application.Commands;

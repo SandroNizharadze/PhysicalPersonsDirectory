@@ -15,6 +15,7 @@ public static class DependencyInjection
         services.AddAutoMapper(typeof(PhysicalPersonProfile).Assembly);
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddScoped<CreatePhysicalPersonCommandHandler>();
+
         return services;
     }
 }

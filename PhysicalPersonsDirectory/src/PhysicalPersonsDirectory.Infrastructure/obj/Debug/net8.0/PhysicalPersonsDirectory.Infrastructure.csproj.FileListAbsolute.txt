@@ -14,3 +14,5 @@
 /Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/obj/Debug/net8.0/PhysicalPersonsDirectory.Infrastructure.pdb
 /Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/obj/Debug/net8.0/ref/PhysicalPersonsDirectory.Infrastructure.dll
 /Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/obj/Debug/net8.0/PhysicalPersonsDirectory.Infrastructure.sourcelink.json
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/bin/Debug/net8.0/PhysicalPersonsDirectory.Infrastructure.runtimeconfig.json
+/Users/admin/Documents/TaskWebApi/PhysicalPersonsDirectory/src/PhysicalPersonsDirectory.Infrastructure/obj/Debug/net8.0/PhysicalPersonsDirectory.Infrastructure.genruntimeconfig.cache

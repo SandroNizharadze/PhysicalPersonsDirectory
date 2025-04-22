@@ -1,7 +1,7 @@
 using MediatR;
 using PhysicalPersonsDirectory.Domain;
-using PhysicalPersonsDirectory.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using PhysicalPersonsDirectory.Infrastructure;
 
 namespace PhysicalPersonsDirectory.Application.Commands;
 

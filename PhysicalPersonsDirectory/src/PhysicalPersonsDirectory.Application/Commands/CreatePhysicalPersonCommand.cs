@@ -1,8 +1,11 @@
 using MediatR;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using PhysicalPersonsDirectory.Application.DTOs;
 using PhysicalPersonsDirectory.Domain;
-using PhysicalPersonsDirectory.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
+using PhysicalPersonsDirectory.Infrastructure.Repositories;
+using AutoMapper;
+using PhysicalPersonsDirectory.Application.Validators;
 
 namespace PhysicalPersonsDirectory.Application.Commands;
 
@@ -19,66 +22,45 @@ public class CreatePhysicalPersonCommand : IRequest<int>
 
 public class CreatePhysicalPersonCommandHandler : IRequestHandler<CreatePhysicalPersonCommand, int>
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
+    private readonly IStringLocalizer<SharedResources> _localizer;
+    private readonly ILogger<CreatePhysicalPersonCommandHandler> _logger;
 
-    public CreatePhysicalPersonCommandHandler(ApplicationDbContext context)
+    public CreatePhysicalPersonCommandHandler(
+        IUnitOfWork unitOfWork, 
+        IMapper mapper, 
+        IStringLocalizer<SharedResources> localizer,
+        ILogger<CreatePhysicalPersonCommandHandler> logger)
     {
-        _context = context;
+        _unitOfWork = unitOfWork;
+        _mapper = mapper;
+        _localizer = localizer;
+        _logger = logger;
     }
 
     public async Task<int> Handle(CreatePhysicalPersonCommand request, CancellationToken cancellationToken)
     {
-        using var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
+        _logger.LogInformation("Creating PhysicalPerson with FirstName: {FirstName}", request.FirstName);
 
-        try
+        var person = new PhysicalPerson(
+            request.FirstName,
+            request.LastName,
+            request.Gender,
+            request.PersonalNumber,
+            request.DateOfBirth,
+            request.CityId
+        );
+
+        foreach (var phoneNumberDto in request.PhoneNumbers)
         {
-            // Convert DateOfBirth to UTC if it's not already
-            var dateOfBirth = request.DateOfBirth.Kind == DateTimeKind.Unspecified
-                ? DateTime.SpecifyKind(request.DateOfBirth, DateTimeKind.Utc)
-                : request.DateOfBirth.ToUniversalTime();
-
-            var person = new PhysicalPerson(
-                request.FirstName,
-                request.LastName,
-                request.Gender,
-                request.PersonalNumber,
-                dateOfBirth,
-                request.CityId);
-
-            Console.WriteLine($"Before Add - Person ID: {person.Id}");
-
-            foreach (var phone in request.PhoneNumbers)
-            {
-                person.AddPhoneNumber(new PhoneNumber(phone.Type, phone.Number));
-            }
-
-            await _context.PhysicalPersons.AddAsync(person);
-            _context.Entry(person).State = EntityState.Added;
-
-            Console.WriteLine($"After Add - Person ID: {person.Id}");
-            Console.WriteLine($"Entity State: {_context.Entry(person).State}");
-
-            var changesSaved = await _context.SaveChangesAsync(cancellationToken);
-            Console.WriteLine($"Changes Saved: {changesSaved}");
-
-            Console.WriteLine($"After SaveChangesAsync - Person ID: {person.Id}");
-
-            await _context.Entry(person).ReloadAsync(cancellationToken);
-            Console.WriteLine($"After Reload - Person ID: {person.Id}");
-
-            if (person.Id == 0)
-            {
-                throw new Exception("Failed to generate ID for the new PhysicalPerson after reload.");
-            }
-
-            await transaction.CommitAsync(cancellationToken);
-
-            return person.Id;
+            person.AddPhoneNumber(new PhoneNumber(phoneNumberDto.Type, phoneNumberDto.Number));
         }
-        catch (Exception ex)
-        {
-            await transaction.RollbackAsync(cancellationToken);
-            throw new Exception($"Failed to create PhysicalPerson: {ex.Message}", ex);
-        }
+
+        await _unitOfWork.PhysicalPersons.AddAsync(person, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+        _logger.LogInformation("Successfully created PhysicalPerson with ID: {PersonId}", person.Id);
+        return person.Id;
     }
 }
