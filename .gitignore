@@ -1,0 +1,36 @@
+cat << EOF > .gitignore
+# Build artifacts
+bin/
+obj/
+
+# Visual Studio / Rider files
+.vscode/
+*.user
+*.suo
+
+# macOS system files
+.DS_Store
+
+# Logs and temp
+*.log
+*.tmp
+
+# .NET outputs
+*.dll
+*.pdb
+*.exe
+*.cache
+
+# Test results
+TestResults/
+*.TestResults/
+
+# Local configs
+appsettings.Development.json
+
+# User secrets
+secrets.json
+
+# Publish outputs
+publish/
+EOF
