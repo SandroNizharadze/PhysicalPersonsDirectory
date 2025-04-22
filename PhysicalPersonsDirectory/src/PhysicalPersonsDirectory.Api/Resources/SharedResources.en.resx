@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="InvalidRequest" xml:space="preserve">
+    <value>Invalid request</value>
+  </data>
+  <data name="NameLengthInvalid" xml:space="preserve">
+    <value>First name or last name must be between 2 and 50 characters.</value>
+  </data>
+  <data name="PersonalNumberInvalid" xml:space="preserve">
+    <value>Personal number must be exactly 11 characters and unique.</value>
+  </data>
+  <data name="DateOfBirthInvalid" xml:space="preserve">
+    <value>Date of birth cannot be in the future.</value>
+  </data>
+  <data name="PhysicalPersonNotFound" xml:space="preserve">
+    <value>Physical person not found.</value>
+  </data>
+</root>

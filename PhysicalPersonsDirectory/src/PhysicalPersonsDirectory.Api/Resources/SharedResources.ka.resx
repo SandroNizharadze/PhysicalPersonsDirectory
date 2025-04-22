@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="InvalidRequest" xml:space="preserve">
+    <value>არასწორი მოთხოვნა</value>
+  </data>
+  <data name="NameLengthInvalid" xml:space="preserve">
+    <value>სახელი ან გვარი უნდა იყოს 2-დან 50 სიმბოლომდე.</value>
+  </data>
+  <data name="PersonalNumberInvalid" xml:space="preserve">
+    <value>პირადი ნომერი უნდა იყოს ზუსტად 11 სიმბოლო და უნიკალური.</value>
+  </data>
+  <data name="DateOfBirthInvalid" xml:space="preserve">
+    <value>დაბადების თარიღი არ შეიძლება იყოს მომავალში.</value>
+  </data>
+  <data name="PhysicalPersonNotFound" xml:space="preserve">
+    <value>ფიზიკური პირი ვერ მოიძებნა.</value>
+  </data>
+</root>

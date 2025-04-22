@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <schema id="root" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="root" msdata:IsDataSet="true">
+      <xs:complexType>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element name="data">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                <xs:element name="comment" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xs:string" use="required" />
+              <xs:attribute name="type" type="xs:string" />
+              <xs:attribute name="mimetype" type="xs:string" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </schema>
+  <data name="ImageRequired">
+    <value>No file was uploaded.</value>
+  </data>
+  <data name="ImageUploadFailed">
+    <value>Image upload failed: {0}</value>
+  </data>
+  <data name="InvalidRequest">
+    <value>Invalid request: {0}</value>
+  </data>
+  <data name="ValidationFailed">
+    <value>Validation failed</value>
+  </data>
+  <data name="IDMismatch">
+    <value>ID in URL does not match ID in body.</value>
+  </data>
+  <data name="RelatedPhysicalPersonIdRequired">
+    <value>Related person ID is required.</value>
+  </data>
+  <data name="RelatedPhysicalPersonIdMustBePositive">
+    <value>Related person ID must be a positive number.</value>
+  </data>
+  <data name="RelationTypeRequired">
+    <value>Relation type is required.</value>
+  </data>
+  <data name="CannotRelateToSelf">
+    <value>A person cannot be related to themselves.</value>
+  </data>
+</root>

@@ -1,5 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging; // Add this for logging
 using PhysicalPersonsDirectory.Application.Commands;
 using PhysicalPersonsDirectory.Application.Queries;
 using PhysicalPersonsDirectory.Domain;
@@ -12,10 +14,17 @@ namespace PhysicalPersonsDirectory.Api.Controllers;
 public class PhysicalPersonsController : ControllerBase
 {
     private readonly ISender _sender;
+    private readonly IStringLocalizer<PhysicalPersonsController> _localizer;
+    private readonly ILogger<PhysicalPersonsController> _logger; // Add logger
 
-    public PhysicalPersonsController(ISender sender)
+    public PhysicalPersonsController(
+        ISender sender, 
+        IStringLocalizer<PhysicalPersonsController> localizer, 
+        ILogger<PhysicalPersonsController> logger) // Inject logger
     {
         _sender = sender;
+        _localizer = localizer;
+        _logger = logger;
     }
 
     [HttpGet]
@@ -59,8 +68,28 @@ public class PhysicalPersonsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreatePhysicalPersonCommand command, CancellationToken cancellationToken)
     {
-        var personId = await _sender.Send(command, cancellationToken);
-        return CreatedAtAction(nameof(Get), new { id = personId }, new { Id = personId });
+        try
+        {
+            _logger.LogInformation("Attempting to create a new PhysicalPerson with FirstName: {FirstName}", command.FirstName);
+            var personId = await _sender.Send(command, cancellationToken);
+            _logger.LogInformation("Successfully created PhysicalPerson with ID: {PersonId}", personId);
+            return CreatedAtAction(nameof(Get), new { id = personId }, new { Id = personId });
+        }
+        catch (DomainException ex)
+        {
+            _logger.LogWarning("DomainException caught in Create action: {Message}", ex.Message);
+            return BadRequest(new { Error = _localizer["InvalidRequest"].Value, Details = _localizer[ex.Message].Value });
+        }
+        catch (ArgumentException ex)
+        {
+            _logger.LogWarning("ArgumentException caught in Create action: {Message}", ex.Message);
+            return BadRequest(new { Error = _localizer["InvalidRequest"].Value, Details = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Unexpected error in Create action");
+            throw;
+        }
     }
 
     [HttpGet("{id}")]
@@ -82,11 +111,18 @@ public class PhysicalPersonsController : ControllerBase
     {
         if (id != command.Id)
         {
-            return BadRequest(new { Error = "ID in URL does not match ID in body." });
+            return BadRequest(new { Error = "IDMismatch", Details = _localizer["IDMismatch"].Value });
         }
 
-        await _sender.Send(command, cancellationToken);
-        return NoContent();
+        try
+        {
+            await _sender.Send(command, cancellationToken);
+            return NoContent();
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { Error = _localizer["InvalidRequest"].Value, Details = ex.Message });
+        }
     }
 
     [HttpDelete("{id}")]
@@ -102,7 +138,7 @@ public class PhysicalPersonsController : ControllerBase
     {
         if (file == null || file.Length == 0)
         {
-            return BadRequest(new { Error = "ImageRequired", Details = "No file was uploaded." });
+            return BadRequest(new { Error = "ImageRequired", Details = _localizer["ImageRequired"].Value });
         }
 
         var command = new UploadPhysicalPersonImageCommand
@@ -118,7 +154,7 @@ public class PhysicalPersonsController : ControllerBase
         }
         catch (Exception ex)
         {
-            return BadRequest(new { Error = "ImageUploadFailed", Details = ex.Message });
+            return BadRequest(new { Error = "ImageUploadFailed", Details = _localizer["ImageUploadFailed", ex.Message].Value });
         }
     }
 
@@ -127,7 +163,7 @@ public class PhysicalPersonsController : ControllerBase
     {
         if (!ModelState.IsValid)
         {
-            return BadRequest(new { Error = "ValidationFailed", Details = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+            return BadRequest(new { Error = _localizer["ValidationFailed"].Value, Details = ModelState.Values.SelectMany(v => v.Errors).Select(e => _localizer[e.ErrorMessage].Value) });
         }
 
         var command = new AddRelatedPersonCommand
@@ -144,7 +180,7 @@ public class PhysicalPersonsController : ControllerBase
         }
         catch (ArgumentException ex)
         {
-            return BadRequest(new { Error = "InvalidRequest", Details = ex.Message });
+            return BadRequest(new { Error = _localizer["InvalidRequest"].Value, Details = ex.Message });
         }
     }
 
@@ -164,7 +200,7 @@ public class PhysicalPersonsController : ControllerBase
         }
         catch (ArgumentException ex)
         {
-            return BadRequest(new { Error = "InvalidRequest", Details = ex.Message });
+            return BadRequest(new { Error = _localizer["InvalidRequest"].Value, Details = ex.Message });
         }
     }
 }
