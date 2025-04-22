@@ -3,6 +3,9 @@ cat << EOF > .gitignore
 bin/
 obj/
 
+**/obj/
+**/bin/
+
 # Visual Studio / Rider files
 .vscode/
 *.user
